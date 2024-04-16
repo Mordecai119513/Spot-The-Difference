@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DAC-大家來找碴</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
+    <header class="title">
+        <h1 class="titleName">DAC-大家來找碴</h1>
+        <h2>Find The 5 Differences</h2>
+        <div id="timer">60</div>
+    </header>
+    <div class="game-container">
+        <div class="image-container">
+            <img id="image1" src="/images/復活節找碴-1.jpg" alt="Image 1">
+          </div>
+          <div class="image-container">
+            <img id="image2" src="/images/復活節找碴-2.jpg" alt="Image 2">
+          </div>          
+    </div>
+    <script src="script.js"></script>
+    <div id="myModal" class="modal text-center p-3">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <p>一般七星菸盒內容為幾根紙菸呢?</p>
+          <button type="button" class="btn btn-primary btn-sm" onclick="validateAnswer(5)">5根</button>
+          <button type="button" class="btn btn-primary btn-sm" onclick="validateAnswer(10)">10根</button>
+          <button type="button" class="btn btn-primary btn-sm" onclick="validateAnswer(15)">15根</button>
+          <button type="button" class="btn btn-primary btn-sm" onclick="validateAnswer(20)">20根</button>
+        </div>
+      </div>
+</body>
+</html>
