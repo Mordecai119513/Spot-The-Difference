@@ -97,7 +97,6 @@ function checkGameCompletion() {
   if (differences.every((diff) => diff.found)) {
     console.log("All differences found");
 
-    // 刪除原本的 confirm 對話框，改為調用 showQuestion 來顯示選擇題
     showQuestion(); // 顯示選擇型問題
   }
 }
@@ -117,7 +116,7 @@ function startTimer() {
   }, 1000);
 }
 function resetGame() {
-  clearInterval(intervalId); // 確保清除當前計時器
+  clearInterval(intervalId); // 清除當前計時器
   timer = 60;
   currentLevel = 0;
   loadLevel(currentLevel);
@@ -125,7 +124,42 @@ function resetGame() {
 }
 
 // 關卡題目
+const questions = [
+  {
+    question: "一般七星菸盒內容為幾根紙菸呢?",
+    options: ["5", "10", "15", "20"],
+    answer: "20",
+  },
+  {
+    question: "Ploom X平均加熱時間",
+    options: ["5秒", "10秒", "15秒", "20秒"],
+    answer: "20秒",
+  },
+  // 新增更多問題
+];
+
 function showQuestion() {
+  const randomIndex = Math.floor(Math.random() * questions.length);
+  const selectedQuestion = questions[randomIndex];
+
+  document.querySelector("#myModal .modal-content p").textContent =
+    selectedQuestion.question;
+  const buttonsContainer = document.querySelector(
+    "#myModal .modal-content div"
+  );
+  buttonsContainer.innerHTML = ""; // 清空之前的按鈕
+
+  selectedQuestion.options.forEach((option) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.classList.add("btn", "btn-primary", "btn-sm", "ms-2");
+    button.textContent = option + "";
+    button.onclick = function () {
+      validateAnswer(option, selectedQuestion.answer);
+    };
+    buttonsContainer.appendChild(button);
+  });
+
   document.getElementById("myModal").style.display = "block";
 }
 
@@ -133,9 +167,8 @@ function hideQuestion() {
   document.getElementById("myModal").style.display = "none";
 }
 
-// 當用戶選擇答案時調用這個函數
-function validateAnswer(selectedAnswer) {
-  const correctAnswer = 20;
+// 當使用者選擇答案時調用此函數
+function validateAnswer(selectedAnswer, correctAnswer) {
   if (selectedAnswer === correctAnswer) {
     hideQuestion();
     // 正確答案，進行下一關
