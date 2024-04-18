@@ -21,22 +21,21 @@ const levels = [
   {
     images: ["/images/復活節找碴-1.jpg", "/images/復活節找碴-2.jpg"],
     differences: [
-      { x: 270, y: 60, found: false },
-      { x: 415, y: 65, found: false },
-      { x: 385, y: 275, found: false },
-      { x: 480, y: 350, found: false },
-      { x: 350, y: 225, found: false },
+      { x: 200, y: 65, found: false },
+      { x: 345, y: 60, found: false },
+      { x: 285, y: 220, found: false },
+      { x: 315, y: 270, found: false },
+      { x: 407, y: 335, found: false },
     ],
   },
   {
     images: ["/images/萬聖節找碴-1.jpg", "/images/萬聖節找碴-2.jpg"],
     differences: [
-      { x: 230, y: 320, found: false },
-      { x: 255, y: 320, found: false },
-      { x: 325, y: 300, found: false },
-      { x: 390, y: 300, found: false },
-      { x: 423, y: 86, found: false },
-      { x: 585, y: 180, found: false },
+      { x: 350, y: 86, found: false },
+      { x: 85, y: 105, found: false },
+      { x: 526, y: 145, found: false },
+      { x: 170, y: 310, found: false },
+      { x: 270, y: 292, found: false },
     ],
   },
 ];
@@ -70,7 +69,7 @@ function markDifference(event) {
   const imageId = target.id;
   const otherImageId = imageId === "image1" ? "image2" : "image1";
   const otherImage = document.getElementById(otherImageId);
-  const tolerance = 10;
+  const tolerance = 20;
   for (let diff of differences) {
     const distance = Math.sqrt((diff.x - clickX) ** 2 + (diff.y - clickY) ** 2);
     if (distance < tolerance && !diff.found) {
@@ -85,11 +84,8 @@ function markDifference(event) {
 function createMarker(image, x, y) {
   const marker = document.createElement("div");
   marker.classList.add("marker");
-  marker.style.cssText = `width: 20px; height: 20px; border-radius: 50%; border: 2px solid red; position: absolute; transform: translate(-50%, -50%);`;
-  const rect = image.getBoundingClientRect();
-  marker.style.left = `${rect.left + window.scrollX + x}px`;
-  marker.style.top = `${rect.top + window.scrollY + y}px`;
-  document.body.appendChild(marker);
+  marker.style.cssText = `width: 20px; height: 20px; border-radius: 50%; border: 2px solid red; position: absolute; transform: translate(-50%, -50%); left: ${x}px; top: ${y}px;`;
+  image.parentElement.appendChild(marker);
 }
 
 function checkGameCompletion() {
