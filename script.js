@@ -1,22 +1,19 @@
 document.addEventListener("DOMContentLoaded", (event) => {
-  loadLevel(currentLevel); // 遊戲開始時load第一題
+  loadLevel(currentLevel);
   document.getElementById("image1").addEventListener("click", markDifference);
   document.getElementById("image2").addEventListener("click", markDifference);
-  startTimer(); // 開始計時
+  startTimer();
   document.querySelector(".close").addEventListener("click", hideQuestion);
 });
 document.addEventListener("click", function (event) {
-  // 確認點擊事件是在 img 標籤上發生的
   if (event.target.tagName === "IMG") {
-    // 獲取點擊位置相對於圖片的 XY 座標
     let x = event.offsetX;
     let y = event.offsetY;
-    // 將座標顯示在控制台上
     console.log("X Position: " + x + ", Y Position: " + y);
   }
 });
-let currentLevel = 0; // 當前關卡索引
-let differences = []; // 當前關卡的差異點數據
+let currentLevel = 0;
+let differences = [];
 const levels = [
   {
     images: ["/images/復活節找碴-1.jpg", "/images/復活節找碴-2.jpg"],
@@ -49,11 +46,11 @@ function loadLevel(levelIndex) {
   console.log("Updated src attributes:", image1.src, image2.src);
   differences = level.differences.map((diff) => ({ ...diff, found: false }));
   clearMarkers();
-  console.log(image1.src); // 應該顯示新的src
-  console.log(image2.src); // 應該顯示新的src
-  image1.style.display = "none"; // 隱藏圖片
-  image1.offsetHeight; // 強制瀏覽器重繪
-  image1.style.display = "block"; // 重新顯示圖片
+  console.log(image1.src);
+  console.log(image2.src);
+  image1.style.display = "none";
+  image1.offsetHeight;
+  image1.style.display = "block";
   image2.style.display = "none";
   image2.offsetHeight;
   image2.style.display = "block";
@@ -93,11 +90,11 @@ function checkGameCompletion() {
   if (differences.every((diff) => diff.found)) {
     console.log("All differences found");
 
-    showQuestion(); // 顯示選擇型問題
+    showQuestion();
   }
 }
 
-let timer = 60; // 設定計時器
+let timer = 60;
 let intervalId;
 function startTimer() {
   const timerElement = document.getElementById("timer");
@@ -112,14 +109,13 @@ function startTimer() {
   }, 1000);
 }
 function resetGame() {
-  clearInterval(intervalId); // 清除當前計時器
+  clearInterval(intervalId);
   timer = 60;
   currentLevel = 0;
   loadLevel(currentLevel);
-  startTimer(); // 重新開始計時器
+  startTimer();
 }
 
-// 關卡題目
 const questions = [
   {
     question: "一般七星菸盒內容為幾根紙菸呢?",
@@ -131,7 +127,6 @@ const questions = [
     options: ["5秒", "10秒", "15秒", "20秒"],
     answer: "20秒",
   },
-  // 新增更多問題
 ];
 
 function showQuestion() {
@@ -143,7 +138,7 @@ function showQuestion() {
   const buttonsContainer = document.querySelector(
     "#myModal .modal-content div"
   );
-  buttonsContainer.innerHTML = ""; // 清空之前的按鈕
+  buttonsContainer.innerHTML = "";
 
   selectedQuestion.options.forEach((option) => {
     const button = document.createElement("button");
@@ -163,17 +158,16 @@ function hideQuestion() {
   document.getElementById("myModal").style.display = "none";
 }
 
-// 當使用者選擇答案時調用此函數
 function validateAnswer(selectedAnswer, correctAnswer) {
   if (selectedAnswer === correctAnswer) {
     hideQuestion();
-    // 正確答案，進行下一關
+
     currentLevel++;
     if (currentLevel < levels.length) {
       loadLevel(currentLevel);
     } else {
       alert("恭喜！你完成了所有題目！");
-      resetGame(); // 選項性地重置遊戲
+      resetGame();
     }
   } else {
     alert("答案錯誤，請重新嘗試！");
